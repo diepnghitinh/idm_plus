@@ -1,3 +1,5 @@
+releases/
+
 # OS stuff
 ###################
 .DS_Store
@@ -48,7 +50,7 @@ nbproject
 *.iso
 *.jar
 *.rar
-*.tar
+# *.tar
 *.zip
 
 # Logs and databases #
