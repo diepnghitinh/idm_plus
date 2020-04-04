@@ -571,6 +571,11 @@ public class LDAPStorageProvider implements UserStorageProvider,
     }
 
     @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) {
+        return null;
+    }
+
+    @Override
     public void preRemove(RealmModel realm) {
         // complete Don't think we have to do anything
     }

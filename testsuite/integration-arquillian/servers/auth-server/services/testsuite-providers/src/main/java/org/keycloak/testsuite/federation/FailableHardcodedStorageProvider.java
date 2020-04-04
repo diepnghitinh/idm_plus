@@ -209,6 +209,11 @@ public class FailableHardcodedStorageProvider implements UserStorageProvider, Us
         return null;
     }
 
+    @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) {
+        return null;
+    }
+
     protected void checkForceFail() {
         if (fail || componentFail) throwFailure();
     }

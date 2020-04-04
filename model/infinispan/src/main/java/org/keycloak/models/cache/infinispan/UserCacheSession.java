@@ -214,11 +214,15 @@ public class UserCacheSession implements UserCache {
     }
 
     static String getUserByUsernameCacheKey(String realmId, String username) {
-        return realmId + ".username." + username;
+        return realmId + "#username#" + username;
     }
 
     static String getUserByEmailCacheKey(String realmId, String email) {
-        return realmId + ".email." + email;
+        return realmId + "#email#" + email;
+    }
+
+    static String getUserByMobileCacheKey(String realmId, String mobile) {
+        return realmId + "#mobile#" + mobile;
     }
 
     private static String getUserByFederatedIdentityCacheKey(String realmId, FederatedIdentityModel socialLink) {
@@ -396,6 +400,45 @@ public class UserCacheSession implements UserCache {
             userId = query.getUsers().iterator().next();
             if (invalidations.contains(userId)) {
                 return getDelegate().getUserByEmail(email, realm);
+
+            }
+            return getUserById(userId, realm);
+        }
+    }
+
+    @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) {
+        if (mobile == null) return null;
+        mobile = mobile.toLowerCase();
+        if (realmInvalidations.contains(realm.getId())) {
+            return getDelegate().getUserByMobile(mobile, realm);
+        }
+        String cacheKey = getUserByMobileCacheKey(realm.getId(), mobile);
+        if (invalidations.contains(cacheKey)) {
+            return getDelegate().getUserByMobile(mobile, realm);
+        }
+        UserListQuery query = cache.get(cacheKey, UserListQuery.class);
+
+        String userId = null;
+        if (query == null) {
+            Long loaded = cache.getCurrentRevision(cacheKey);
+            UserModel model = getDelegate().getUserByMobile(mobile, realm);
+            if (model == null) return null;
+            userId = model.getId();
+            if (invalidations.contains(userId)) return model;
+            if (managedUsers.containsKey(userId)) return managedUsers.get(userId);
+
+            UserModel adapter = getUserAdapter(realm, userId, loaded, model);
+            if (adapter instanceof UserAdapter) {
+                query = new UserListQuery(loaded, cacheKey, realm, model.getId());
+                cache.addRevisioned(query, startupRevision);
+            }
+            managedUsers.put(userId, adapter);
+            return adapter;
+        } else {
+            userId = query.getUsers().iterator().next();
+            if (invalidations.contains(userId)) {
+                return getDelegate().getUserByMobile(mobile, realm);
 
             }
             return getUserById(userId, realm);

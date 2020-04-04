@@ -544,7 +544,23 @@ public class JpaUserProvider implements UserProvider, UserCredentialStore {
         return new UserAdapter(session, realm, em, results.get(0));
     }
 
-     @Override
+    @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) {
+        String[] mobileArr = mobile.split("\\.");
+        TypedQuery<UserEntity> query = em.createNamedQuery("getRealmUserByMobile", UserEntity.class);
+        query.setParameter("mobileCode", mobileArr[0]);
+        query.setParameter("mobileNumber", mobileArr[1]);
+        query.setParameter("realmId", realm.getId());
+        List<UserEntity> results = query.getResultList();
+
+        if (results.isEmpty()) return null;
+
+        ensureEmailConstraint(results, realm);
+
+        return new UserAdapter(session, realm, em, results.get(0));
+    }
+
+    @Override
     public void close() {
     }
 

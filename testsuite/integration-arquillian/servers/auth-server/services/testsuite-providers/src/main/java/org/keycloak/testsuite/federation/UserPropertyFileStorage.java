@@ -104,6 +104,9 @@ public class UserPropertyFileStorage implements UserLookupProvider, UserStorageP
     }
 
     @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) { return null; }
+
+    @Override
     public void preRemove(RealmModel realm) {
 
     }

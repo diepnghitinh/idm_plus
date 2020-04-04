@@ -153,6 +153,11 @@ public class PassThroughFederatedUserStorageProvider implements
         return null;
     }
 
+    @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) {
+        return null;
+    }
+
     private UserModel getUserModel(final RealmModel realm) {
         return new AbstractUserAdapterFederatedStorage(session, realm, component) {
             @Override

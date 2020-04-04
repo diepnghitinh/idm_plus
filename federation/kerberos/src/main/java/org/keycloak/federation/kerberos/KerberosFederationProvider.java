@@ -105,6 +105,11 @@ public class KerberosFederationProvider implements UserStorageProvider,
     }
 
     @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) {
+        return null;
+    }
+
+    @Override
     public UserModel getUserById(String id, RealmModel realm) {
         return null;
     }

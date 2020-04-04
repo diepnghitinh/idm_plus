@@ -416,6 +416,21 @@ public class UserStorageManager implements UserProvider, OnUserCache, OnCreateCo
     }
 
     @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) {
+        UserModel user = localStorage().getUserByMobile(mobile, realm);
+        if (user != null) {
+            return importValidation(realm, user);
+        }
+        for (UserLookupProvider provider : getEnabledStorageProviders(session, realm, UserLookupProvider.class)) {
+            user = provider.getUserByMobile(mobile, realm);
+            if (user != null) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public UserModel getUserByFederatedIdentity(FederatedIdentityModel socialLink, RealmModel realm) {
         UserModel user = localStorage().getUserByFederatedIdentity(socialLink, realm);
         if (user != null) {

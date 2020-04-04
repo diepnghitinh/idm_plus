@@ -43,17 +43,13 @@ import java.util.Map;
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
  * @version $Revision: 1 $
  */
-public class ValidatieCustomField extends AbstractDirectGrantAuthenticator {
+public class ValidatieMobile extends AbstractDirectGrantAuthenticator {
 
-    public static final String PROVIDER_ID = "direct-grant-validate-customfield";
-    public static final String CONF_ATTRIBUTE_NAME = "attribute_name";
+    public static final String PROVIDER_ID = "direct-grant-validate-mobile";
 
     @Override
     public void authenticate(AuthenticationFlowContext context) {
-        Map<String, String> config = context.getAuthenticatorConfig().getConfig();
-        String attributeName = config.get(CONF_ATTRIBUTE_NAME);
-
-        String username = retrieveUsername(context, attributeName);
+        String username = retrieveUsername(context);
         if (username == null) {
             context.getEvent().error(Errors.USER_NOT_FOUND);
             Response challengeResponse = errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "invalid_request", "Missing parameter: username");
@@ -65,7 +61,7 @@ public class ValidatieCustomField extends AbstractDirectGrantAuthenticator {
 
         UserModel user = null;
         try {
-            user = KeycloakModelUtils.findUserByCustomField(context.getSession(), context.getRealm(), attributeName, username);
+            user = KeycloakModelUtils.findUserByMobile(context.getSession(), context.getRealm(), username);
         } catch (ModelDuplicateException mde) {
             ServicesLogger.LOGGER.modelDuplicateException(mde);
             Response challengeResponse = errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "invalid_request", "Invalid user credentials");
@@ -122,7 +118,7 @@ public class ValidatieCustomField extends AbstractDirectGrantAuthenticator {
 
     @Override
     public String getDisplayType() {
-        return "Username By Customfield";
+        return "Username By Mobile";
     }
 
     @Override
@@ -132,7 +128,7 @@ public class ValidatieCustomField extends AbstractDirectGrantAuthenticator {
 
     @Override
     public boolean isConfigurable() {
-        return true;
+        return false;
     }
 
     public static final AuthenticationExecutionModel.Requirement[] REQUIREMENT_CHOICES = {
@@ -151,14 +147,7 @@ public class ValidatieCustomField extends AbstractDirectGrantAuthenticator {
 
     @Override
     public List<ProviderConfigProperty> getConfigProperties() {
-
-        ProviderConfigProperty authNoteName = new ProviderConfigProperty();
-        authNoteName.setType(ProviderConfigProperty.STRING_TYPE);
-        authNoteName.setName(CONF_ATTRIBUTE_NAME);
-        authNoteName.setLabel("Attribute name");
-        authNoteName.setHelpText("Name of the attribute to check");
-
-        return Arrays.asList(authNoteName);
+        return new LinkedList<>();
     }
 
     @Override
@@ -166,8 +155,8 @@ public class ValidatieCustomField extends AbstractDirectGrantAuthenticator {
         return PROVIDER_ID;
     }
  
-    protected String retrieveUsername(AuthenticationFlowContext context, String attributeName) {
+    protected String retrieveUsername(AuthenticationFlowContext context) {
         MultivaluedMap<String, String> inputData = context.getHttpRequest().getDecodedFormParameters();
-        return inputData.getFirst(attributeName);
+        return inputData.getFirst("mobile");
     }
 }

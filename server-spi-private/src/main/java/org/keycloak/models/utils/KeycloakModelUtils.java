@@ -220,13 +220,12 @@ public final class KeycloakModelUtils {
      * @param username username or email of user
      * @return found user
      */
-    public static UserModel findUserByCustomField(KeycloakSession session, RealmModel realm, String attribute, String username) {
-        List<UserModel> users = session.users().searchForUserByUserAttribute(attribute, username, realm);
-        if (users.size() == 0) {
-            return null;
+    public static UserModel findUserByMobile(KeycloakSession session, RealmModel realm,String username) {
+        UserModel user = session.users().getUserByMobile(username, realm);
+        if (user != null) {
+            return user;
         }
-
-        return users.get(0);
+        return null;
     }
 
     /**

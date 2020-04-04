@@ -142,6 +142,11 @@ public class SSSDFederationProvider implements UserStorageProvider,
     }
 
     @Override
+    public UserModel getUserByMobile(String mobile, RealmModel realm) {
+        return null;
+    }
+
+    @Override
     public void preRemove(RealmModel realm) {
         // complete  We don't care about the realm being removed
     }
