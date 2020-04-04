@@ -39,6 +39,8 @@ public class CachedUser extends AbstractExtendableRevisioned implements InRealm 
 
     private final String realm;
     private final String username;
+    private final String mobileCode;
+    private final String mobileNumber;
     private final Long createdTimestamp;
     private final String firstName;
     private final String lastName;
@@ -57,6 +59,8 @@ public class CachedUser extends AbstractExtendableRevisioned implements InRealm 
         super(revision, user.getId());
         this.realm = realm.getId();
         this.username = user.getUsername();
+        this.mobileCode = user.getMobileCode();
+        this.mobileNumber = user.getMobileNumber();
         this.createdTimestamp = user.getCreatedTimestamp();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
@@ -78,6 +82,14 @@ public class CachedUser extends AbstractExtendableRevisioned implements InRealm 
 
     public String getUsername() {
         return username;
+    }
+
+    public String getMobileCode() {
+        return mobileCode;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
     public Long getCreatedTimestamp() {

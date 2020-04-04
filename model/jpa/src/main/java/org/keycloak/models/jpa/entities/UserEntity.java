@@ -64,7 +64,8 @@ import java.util.Collection;
 @Entity
 @Table(name="USER_ENTITY", uniqueConstraints = {
         @UniqueConstraint(columnNames = { "REALM_ID", "USERNAME" }),
-        @UniqueConstraint(columnNames = { "REALM_ID", "EMAIL_CONSTRAINT" })
+        @UniqueConstraint(columnNames = { "REALM_ID", "EMAIL_CONSTRAINT" }),
+        @UniqueConstraint(columnNames = { "REALM_ID", "MOBILE_CODE", "MOBILE_NUMBER" }),
 })
 public class UserEntity {
     @Id
@@ -96,6 +97,12 @@ public class UserEntity {
 
     @Column(name = "REALM_ID")
     protected String realmId;
+
+    //Houze: Custom fields
+    @Column(name = "MOBILE_CODE", nullable = true)
+    protected String mobileCode;
+    @Column(name = "MOBILE_NUMBER", nullable = true)
+    protected String mobileNumber;
 
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy="user")
     @Fetch(FetchMode.SELECT)
@@ -248,6 +255,26 @@ public class UserEntity {
 
     public void setNotBefore(int notBefore) {
         this.notBefore = notBefore;
+    }
+
+    //Houze
+    public String getMobileCode() {
+        return this.mobileCode;
+    }
+    public String getMobileNumber() {
+        return this.mobileNumber;
+    }
+
+    public void setMobileCode(String mobileCode) {
+        this.mobileCode = mobileCode;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getFullMobileNumber() {
+        return this.mobileCode+"."+this.mobileNumber;
     }
 
     @Override

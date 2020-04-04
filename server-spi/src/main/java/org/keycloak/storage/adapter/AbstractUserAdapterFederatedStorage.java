@@ -389,6 +389,30 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
         return getFirstAttribute(LAST_NAME_ATTRIBUTE);
     }
 
+    /*
+        Houze custom
+     */
+    @Override
+    public void setMobileNumber(String mobileNumber) {
+        setSingleAttribute(MOBILE_NUMBER, mobileNumber);
+    }
+
+    @Override
+    public String getMobileNumber() {
+        return getFirstAttribute(MOBILE_NUMBER);
+    }
+
+    @Override
+    public void setMobileCode(String mobileCode) {
+        setSingleAttribute(MOBILE_CODE, mobileCode);
+    }
+
+    @Override
+    public String getMobileCode() {
+        return getFirstAttribute(MOBILE_CODE);
+    }
+
+
     /**
      * Stores as attribute in federated storage.
      * LAST_NAME_ATTRIBUTE

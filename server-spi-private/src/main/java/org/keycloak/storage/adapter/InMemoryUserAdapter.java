@@ -41,6 +41,8 @@ import java.util.Set;
  */
 public class InMemoryUserAdapter implements UserModel {
     private String username;
+    private String mobileCode;
+    private String mobileNumber;
     private Long createdTimestamp = Time.currentTimeMillis();
     private String firstName;
     private String lastName;
@@ -103,6 +105,26 @@ public class InMemoryUserAdapter implements UserModel {
         checkReadonly();
         this.username = username.toLowerCase();
 
+    }
+
+    @Override
+    public String getMobileCode() {
+        return this.mobileCode;
+    }
+
+    @Override
+    public void setMobileCode(String mobileCode) {
+        this.mobileCode = mobileCode;
+    }
+
+    @Override
+    public String getMobileNumber() {
+        return this.mobileNumber;
+    }
+
+    @Override
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     @Override

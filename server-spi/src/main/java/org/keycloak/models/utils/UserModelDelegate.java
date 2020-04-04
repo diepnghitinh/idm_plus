@@ -55,6 +55,26 @@ public class UserModelDelegate implements UserModel {
     }
 
     @Override
+    public String getMobileCode() {
+        return delegate.getMobileCode();
+    }
+
+    @Override
+    public void setMobileCode(String mobileCode) {
+        delegate.setMobileCode(mobileCode);
+    }
+
+    @Override
+    public String getMobileNumber() {
+        return delegate.getMobileNumber();
+    }
+
+    @Override
+    public void setMobileNumber(String mobileNumber) {
+        delegate.setMobileNumber(mobileNumber);
+    }
+
+    @Override
     public boolean isEnabled() {
         return delegate.isEnabled();
     }

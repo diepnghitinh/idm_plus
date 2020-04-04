@@ -145,7 +145,7 @@ public class UsersResource {
             if (session.getTransactionManager().isActive()) {
                 session.getTransactionManager().setRollbackOnly();
             }
-            return ErrorResponse.exists("User exists with same username or email");
+            return ErrorResponse.exists("User exists with same username/email/mobile");
         } catch (PasswordPolicyNotMetException e) {
             if (session.getTransactionManager().isActive()) {
                 session.getTransactionManager().setRollbackOnly();

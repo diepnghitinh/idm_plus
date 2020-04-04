@@ -113,6 +113,30 @@ public class UserAdapter implements CachedUserModel {
     }
 
     @Override
+    public String getMobileCode() {
+        if (updated != null) return updated.getMobileCode();
+        return cached.getMobileCode();
+    }
+
+    @Override
+    public void setMobileCode(String mobileCode) {
+        getDelegateForUpdate();
+        updated.setMobileCode(mobileCode);
+    }
+
+    @Override
+    public String getMobileNumber() {
+        if (updated != null) return updated.getMobileNumber();
+        return cached.getMobileNumber();
+    }
+
+    @Override
+    public void setMobileNumber(String mobileNumber) {
+        getDelegateForUpdate();
+        updated.setMobileNumber(mobileNumber);
+    }
+
+    @Override
     public Long getCreatedTimestamp() {
         // get from cached always as it is immutable
         return cached.getCreatedTimestamp();

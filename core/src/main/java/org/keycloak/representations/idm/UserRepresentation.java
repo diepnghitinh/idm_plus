@@ -38,6 +38,8 @@ public class UserRepresentation {
     protected String origin;
     protected Long createdTimestamp;
     protected String username;
+    protected String mobileCode;
+    protected String mobileNumber;
     protected Boolean enabled;
     protected Boolean totp;
     protected Boolean emailVerified;
@@ -283,4 +285,13 @@ public class UserRepresentation {
     public void setAccess(Map<String, Boolean> access) {
         this.access = access;
     }
+
+    //Houze
+    public String getMobileNumber() {
+        return this.mobileNumber;
+    }
+    public void setMobileNumber(String mobileNumber) { this.mobileNumber = mobileNumber; }
+
+    public String getMobileCode() { return this.mobileCode; }
+    public void setMobileCode(String mobileCode) { this.mobileCode = mobileCode; }
 }

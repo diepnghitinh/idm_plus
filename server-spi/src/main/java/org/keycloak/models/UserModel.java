@@ -31,6 +31,8 @@ import java.util.stream.Collectors;
  */
 public interface UserModel extends RoleMapperModel {
     String USERNAME = "username";
+    String MOBILE_CODE = "mobileCode";
+    String MOBILE_NUMBER = "mobileNumber";
     String LAST_NAME = "lastName";
     String FIRST_NAME = "firstName";
     String EMAIL = "email";
@@ -50,6 +52,12 @@ public interface UserModel extends RoleMapperModel {
     String getUsername();
 
     void setUsername(String username);
+
+    //Houze
+    String getMobileCode();
+    void setMobileCode(String mobileCode);
+    String getMobileNumber();
+    void setMobileNumber(String mobileNumber);
     
     /**
      * Get timestamp of user creation. May be null for old users created before this feature introduction.

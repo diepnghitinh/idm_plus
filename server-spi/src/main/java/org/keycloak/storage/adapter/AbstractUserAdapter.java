@@ -371,6 +371,26 @@ public abstract class AbstractUserAdapter implements UserModel {
     }
 
     @Override
+    public String getMobileCode() {
+        return null;
+    }
+
+    @Override
+    public void setMobileCode(String mobileCode) {
+        throw new ReadOnlyException("user is read only for this update");
+    }
+
+    @Override
+    public String getMobileNumber() {
+        return null;
+    }
+
+    @Override
+    public void setMobileNumber(String mobileNumber) {
+        throw new ReadOnlyException("user is read only for this update");
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || !(o instanceof UserModel)) return false;

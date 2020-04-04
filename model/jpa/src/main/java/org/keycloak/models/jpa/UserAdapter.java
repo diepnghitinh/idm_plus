@@ -94,6 +94,26 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
     }
 
     @Override
+    public String getMobileCode() {
+        return user.getMobileCode();
+    }
+
+    @Override
+    public void setMobileCode(String mobileCode) {
+        user.setMobileCode(mobileCode);
+    }
+
+    @Override
+    public String getMobileNumber() {
+        return user.getMobileNumber();
+    }
+
+    @Override
+    public void setMobileNumber(String mobileNumber) {
+        user.setMobileNumber(mobileNumber);
+    }
+
+    @Override
     public Long getCreatedTimestamp() {
         return user.getCreatedTimestamp();
     }

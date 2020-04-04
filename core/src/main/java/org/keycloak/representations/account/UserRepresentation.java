@@ -30,6 +30,8 @@ public class UserRepresentation {
 
     private String id;
     private String username;
+    private String mobileCode;
+    private String mobileNumber;
     private String firstName;
     private String lastName;
     private String email;
@@ -52,6 +54,20 @@ public class UserRepresentation {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getMobileCode() {
+        return mobileCode;
+    }
+
+    public void setMobileCode(String mobileCode) {
+        this.mobileCode = mobileCode;
+    }
+
+    public String getMobileNumber() { return mobileNumber; }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getFirstName() {

@@ -180,7 +180,7 @@ public class UserResource {
             }
             return Response.noContent().build();
         } catch (ModelDuplicateException e) {
-            return ErrorResponse.exists("User exists with same username or email");
+            return ErrorResponse.exists("User exists with same username/email/mobile");
         } catch (ReadOnlyException re) {
             return ErrorResponse.exists("User is read only!");
         } catch (ModelException me) {
@@ -208,6 +208,9 @@ public class UserResource {
         if (rep.getEmail() == "") user.setEmail(null);
         if (rep.getFirstName() != null) user.setFirstName(rep.getFirstName());
         if (rep.getLastName() != null) user.setLastName(rep.getLastName());
+
+        if (rep.getMobileCode() != null) user.setMobileCode(rep.getMobileCode());
+        if (rep.getMobileNumber() != null) user.setMobileNumber(rep.getMobileNumber());
 
         if (rep.isEnabled() != null) user.setEnabled(rep.isEnabled());
         if (rep.isEmailVerified() != null) user.setEmailVerified(rep.isEmailVerified());
